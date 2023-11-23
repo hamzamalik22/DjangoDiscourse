@@ -1,19 +1,32 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
-<h1 style="text-align: center;">Django Discourse</h1>
-<p style="text-align: center;padding: 10px 30px;">Welcome to DjangoDiscourse, where chat meets innovation and collaboration! Dive into a world where discussions come alive, playfulness merges with learning, and connections flourish. Join us on a journey where every conversation is an opportunity to explore, share, and grow. DjangoDiscourse — more than just chat, it's a space to play, connect, and expand your horizons.</p>
+<h1 style="text-align: center">Django Discourse</h1>
+<p style="text-align: center; padding: 10px 30px">
+    Welcome to DjangoDiscourse, where chat meets innovation and collaboration!
+    Dive into a world where discussions come alive, playfulness merges with
+    learning, and connections flourish. Join us on a journey where every
+    conversation is an opportunity to explore, share, and grow. DjangoDiscourse —
+    more than just chat, it's a space to play, connect, and expand your horizons.
+</p>
 
-<h2 style="text-align: center;">List of Rooms</h2>
-<hr>
-<div style="text-align: center;">
-    <ul style="list-style: none;font-size: 20px;">
-        {% for room in rooms %}
-        <a href="{% url 'room' room.id %}" target="_blank"><li>{{ room.name }}</li></a>
-        <small>Created by : {{room.host}}</small>
-        {% endfor %}
-    </ul>
+<h2 style="text-align: center">List of Rooms</h2>
+<hr />
+<div>
+    <a href="{% url 'create-room' %}" style="margin: 200px;border: 1px solid brown;padding: 10px;border-radius: 8px;" target="_blank">Create Room</a>
+    {% for room in rooms %}
+    <div style="text-align: center">
+        <div style="list-style: none; font-size: 20px">
+            
+            <a href="{% url 'update-room' room.id %}" target="_blank">Edit</a> | 
+            <a href="{% url 'delete-room' room.id %}" target="_blank">Delete</a>
+            <a href="{% url 'room' room.id %}" target="_blank"> 
+                <li>{{ room.name }}</li>
+            </a>
+            <small>Created by : {{room.host}}</small>
+            <hr style="width: 200px;">
+            {% endfor %}
+        </div>
+    </div>
 </div>
-
 
 {% endblock %}
