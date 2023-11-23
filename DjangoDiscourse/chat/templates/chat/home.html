@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 style="text-align: center;">Django Discourse</h1>
+<p style="text-align: center;padding: 10px 30px;">Welcome to DjangoDiscourse, where chat meets innovation and collaboration! Dive into a world where discussions come alive, playfulness merges with learning, and connections flourish. Join us on a journey where every conversation is an opportunity to explore, share, and grow. DjangoDiscourse — more than just chat, it's a space to play, connect, and expand your horizons.</p>
+
+<h2 style="text-align: center;">List of Rooms</h2>
+<div style="text-align: center;">
+    <ul style="list-style: none;">
+        {% for room in rooms %}
+        <a href="{% url 'room' room.id %}" target="_blank"><li>ID = {{ room.id }} --- {{ room.name }}</li></a>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}
