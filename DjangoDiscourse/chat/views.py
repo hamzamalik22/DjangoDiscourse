@@ -69,7 +69,27 @@ def deleteRoom(request,pk):
     return render(request,'chat/delete.html',context)
 
 
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
+        try:
+            user = User.objects.get('username')
+        except: 
+            messages.error(request,'User dont exists..')
+            return redirect('loginpage')
+    
+        user = authenticate(request,username=username, password=password)
+
+        if user is not None:
+            login(request,user)
+            return redirect('home')
+        else:
+            messages.error(request,'Username or Password incorrect')
+
+    context = {}
+    return render(request,'chat/login.html',context)
 
 def registerPage(request):
     if request.method == 'POST':
