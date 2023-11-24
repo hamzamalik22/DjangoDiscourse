@@ -26,8 +26,12 @@
 </p>
 
 <h2 style="text-align: center">List of Rooms</h2>
+<div>
 <a href="{% url 'create-room' %}" style="margin: 20px; border: 1px solid brown; padding: 10px; border-radius: 8px;" target="_blank">Create Room</a>
-
+<div>
+    <p style="text-align: end;position: relative;right: 30px;bottom: 20px;">User : {{request.user}}</p>
+</div>
+</div>
 <hr/>
 
 <div class="room-container">

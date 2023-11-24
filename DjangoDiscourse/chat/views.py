@@ -1,5 +1,8 @@
 from django.shortcuts import render,redirect
+from django.contrib.auth.models import User
 from django.db.models import Q
+from django.contrib.auth import authenticate,login,logout
+from django.contrib import messages
 from .models import *
 from .forms import *
 
@@ -64,3 +67,37 @@ def deleteRoom(request,pk):
         return redirect('home')
     context = {'obj' : room}
     return render(request,'chat/delete.html',context)
+
+
+
+
+def registerPage(request):
+    if request.method == 'POST':
+        first_name = request.POST.get("first_name")
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        user = User.objects.filter(username = username)
+         
+        if user.exists():
+            messages.error(request,"User already exists")
+            return redirect('/login')
+
+        user = User.objects.create(
+            first_name = first_name , 
+            username = username , 
+            email = email , 
+        )
+
+        user.set_password(password)
+        user.save()
+        messages.success(request,'Account Created Successfully')
+        return redirect('loginpage')
+
+    context = {}
+    return render(request,'chat/register.html',context)
+
+def logoutPage(request):
+    logout(request)
+    return redirect('home')
