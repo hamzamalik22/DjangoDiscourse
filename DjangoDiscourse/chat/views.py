@@ -28,13 +28,13 @@ def home(request):
 
     room_count = rooms.count()
     topics = Topic.objects.all()
-    context = {'rooms' : rooms,'topics' : topics,'room_count' : room_count}
+    context = {'rooms' : rooms,'topics' : topics,'room_count' : room_count,'page' : 'Django Discourse'}
     return render(request,'chat/home.html',context)
 
 
 def room(request,pk):
     room = Room.objects.get(id=pk)
-    context = {'room' : room}
+    context = {'room' : room,'page' : room.name}
     return render(request,'chat/room.html',context)
 
 
@@ -46,7 +46,7 @@ def createRoom(request):
         if form.is_valid():
             form.save()
             return redirect('home')
-    context = {'form' : form}
+    context = {'form' : form,'page' : 'Create Room'}
     return render(request,'chat/room_form.html',context)
 
 
@@ -65,7 +65,7 @@ def updateRoom(request,pk):
             form.save()
             return redirect('home')
 
-    context = {'form' : form}
+    context = {'form' : form,'page' : 'Update Room'}
     return render(request,'chat/room_form.html',context)
 
 
@@ -80,7 +80,7 @@ def deleteRoom(request,pk):
     if request.method == 'POST':
         room.delete()
         return redirect('home')
-    context = {'obj' : room}
+    context = {'obj' : room,'page' : 'Delete Room'}
     return render(request,'chat/delete.html',context)
 
 
@@ -108,7 +108,7 @@ def loginPage(request):
         else:
             messages.error(request,'Username or Password incorrect')
 
-    context = {}
+    context = {'page' : 'Login'}
     return render(request,'chat/login.html',context)
 
 def registerPage(request):
@@ -135,7 +135,7 @@ def registerPage(request):
         messages.success(request,'Account Created Successfully')
         return redirect('loginpage')
 
-    context = {}
+    context = {'page' : 'Register'}
     return render(request,'chat/register.html',context)
 
 def logoutPage(request):
