@@ -2,12 +2,52 @@
 
 
 {% block content %}
+<style>
+    .grid{
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+    }
+</style>
+
 
 
 <h1 style="text-align: center;">{{room.name}}</h1>
 <p style="text-align: center;padding: 0px 40px;">{{room.description}}</p>
 
+<div class="grid">
+<div>
+    <div class="conversation" style="text-align: center;">
+        <h1 >Conversation</h1>
+        {% for chat in chats %}
+        <div>
+            {% if request.user == chat.user %}
+            <a href="{% url 'delete-message' chat.id %}">Delete</a>
+            {% endif %}
+            <small>@{{chat.user}}</small>
+            <small>{{chat.created|timesince}} ago</small>
+           <p>{{chat}}</p> 
+           <hr>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="do_message" style="text-align: center;">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <input type="text" name="message_body" placeholder="Write your message here" />
+        </form>
+    </div>
+</div>
 
+<div class="participants" style="text-align: center;">
+    <h2 >Participants</h2>
+    <div>
+    {% for user in participants %}
+    <div>{{user.username}}</div>
+    {% endfor %}
+    </div>
 
+</div>
+</div>
 
 {% endblock %}

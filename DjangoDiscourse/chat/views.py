@@ -34,7 +34,20 @@ def home(request):
 
 def room(request,pk):
     room = Room.objects.get(id=pk)
-    context = {'room' : room,'page' : room.name}
+    chats = room.message_set.all().order_by('-created')
+
+    participants = room.participants.all()
+
+    if request.method == 'POST':
+        message = Message.objects.create(
+            user = request.user,
+            room = room,
+            message = request.POST.get('message_body')
+        )
+        room.participants.add(request.user)
+        return redirect('room',pk = room.id)
+
+    context = {'room' : room,'page' : room.name,'chats':chats,'participants': participants}
     return render(request,'chat/room.html',context)
 
 
@@ -81,6 +94,20 @@ def deleteRoom(request,pk):
         room.delete()
         return redirect('home')
     context = {'obj' : room,'page' : 'Delete Room'}
+    return render(request,'chat/delete.html',context)
+
+@login_required(login_url='loginpage')
+def deleteMessage(request,pk):
+    message = Message.objects.get(id=pk)
+
+    if  request.user != message.user:
+        messages.error(request,"Only Owner can edit!")
+        return redirect('room')
+
+    if request.method == 'POST':
+        message.delete()
+        return redirect('home')
+    context = {'obj' : message,'page' : 'Delete Message'}
     return render(request,'chat/delete.html',context)
 
 
