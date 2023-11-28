@@ -1,0 +1,21 @@
+<div>
+    {% for room in rooms %}
+        <div style="list-style: none; font-size: 20px">
+            {% if request.user != room.host %}
+            <a href="{% url 'room' room.id %}" target="_blank">
+            
+                <li>{{ room.name }}</li>
+            </a>
+            {% else %}
+            <a href="{% url 'update-room' room.id %}" target="_blank">Edit</a> |
+            <a href="{% url 'delete-room' room.id %}" target="_blank">Delete</a>
+            <a href="{% url 'room' room.id %}" target="_blank">
+            
+                <li>{{ room.name }}</li>
+            </a>
+            {% endif %}
+            <small>Created by: <a href="{% url 'userprofile' room.host.id %}">{{ room.host }}</a></small>
+            <hr style="width: 200px;">
+        </div>
+    {% endfor %}
+    </div>

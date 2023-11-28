@@ -28,7 +28,10 @@ def home(request):
 
     room_count = rooms.count()
     topics = Topic.objects.all()
-    context = {'rooms' : rooms,'topics' : topics,'room_count' : room_count,'page' : 'Django Discourse'}
+
+    chats = Message.objects.all().order_by('-created')
+
+    context = {'rooms' : rooms,'topics' : topics,'room_count' : room_count,'chats': chats,'page' : 'Django Discourse'}
     return render(request,'chat/home.html',context)
 
 
@@ -168,3 +171,12 @@ def registerPage(request):
 def logoutPage(request):
     logout(request)
     return redirect('home')
+
+
+def userProfile(request,pk):
+    user = User.objects.get(id=pk)
+    rooms = user.room_set.all()
+    chats = user.message_set.all()
+    topics = Topic.objects.all()
+    context = {'user' : user,'rooms' : rooms,'chats' : chats,'topics' : topics}
+    return render(request,'chat/profile.html',context)

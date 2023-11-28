@@ -4,7 +4,7 @@
 <style>
     .room-container {
         display: grid;
-        grid-template-columns: 1fr 3fr;
+        grid-template-columns: 1fr 3fr 1fr;
     }
 
     .room-list {
@@ -13,6 +13,11 @@
 
     .room-actions {
         padding-left: 20px;
+    }
+    .placeholder{
+        border: 2px solid brown;
+        padding: 20px;
+        margin-bottom: 15px;
     }
 </style>
 
@@ -36,39 +41,18 @@
 
 <div class="room-container">
     <div class="room-actions">
-        <h2>Browse Topic</h2>
-        <ul>
-            <div>
-            <a href="{% url 'home' %}"><li>All</li></a>
-            </div>
-            {% for topic in topics %}
-            <a href="{% url 'home' %}?q={{topic}}"><li>{{topic}}</li></a>
-            {% endfor %}
-        </ul>
+       {% include 'chat/topics_components.html' %}
     </div>
 
-    <div class="room-list" style="transform: translateX(-160px);">
+    <div class="room-list" >
         <h5></h5><b>{{room_count}}</b> Rooms are Available</h5>
         <hr style="width: 100px;background-color: brown;">
-        {% for room in rooms %}
-            <div style="list-style: none; font-size: 20px">
-                {% if request.user != room.host %}
-                <a href="{% url 'room' room.id %}" target="_blank">
-                
-                    <li>{{ room.name }}</li>
-                </a>
-                {% else %}
-                <a href="{% url 'update-room' room.id %}" target="_blank">Edit</a> |
-                <a href="{% url 'delete-room' room.id %}" target="_blank">Delete</a>
-                <a href="{% url 'room' room.id %}" target="_blank">
-                
-                    <li>{{ room.name }}</li>
-                </a>
-                {% endif %}
-                <small>Created by: {{ room.host }}</small>
-                <hr style="width: 200px;">
-            </div>
-        {% endfor %}
+        <div>
+            {% include 'chat/feed_components.html' %}
+        </div>
+    </div>
+    <div>
+        {% include 'chat/activity_components.html' %}
     </div>
 </div>
 
