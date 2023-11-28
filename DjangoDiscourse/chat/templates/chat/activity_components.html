@@ -1,16 +1,50 @@
-<div>
-        <h3>Recent Activity</h3>
-        {% for chat in chats|slice:":3" %}
-        <div class="placeholder">
-            <small>{{chat.created|timesince}}</small>
-            <a href="{% url 'userprofile' chat.user.id %}"><b>{{chat.user}}</b></a>
-            <small>Replied to Post <br>"{{chat.room}}"</small>
-            <p>
-                {{chat.message}}
-            </p>
-            {% if request.user == chat.user %}
-            <a href="{% url 'delete-message' chat.id %}">Delete</a>
-            {% endif %}
+<div class="activities">
+    <div class="activities__header">
+      <h2>Recent Activities</h2>
+    </div>
+    {% for chat in chats|slice:":3" %}
+    <div class="activities__box">
+      <div class="activities__boxHeader roomListRoom__header">
+        <a href="{% url 'userprofile' chat.user.id %}" class="roomListRoom__author">
+          <div class="avatar avatar--small">
+            <img src="https://randomuser.me/api/portraits/women/11.jpg" />
+          </div>
+          <p>
+            @{{chat.user}}
+            <span>{{chat.created|timesince}} days ago</span>
+          </p>
+        </a>
+
+        {% if request.user == chat.user %}
+        <div class="roomListRoom__actions">
+          <a href="{% url 'delete-message' chat.id %}">
+            <svg
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+            >
+              <title>remove</title>
+              <path
+                d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"
+              ></path>
+            </svg>
+          </a>
         </div>
-        {% endfor %}
-</div>
+        {% endif %}
+
+      </div>
+      <div class="activities__boxContent">
+        <p>
+          replied to post “<a href="{% url 'room' chat.room.id %}">{{chat.room}}</a
+          >”
+        </p>
+        <div class="activities__boxRoomContent">
+            {{chat.message}}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
