@@ -13,6 +13,5 @@ urlpatterns = [
     path('registerpage/',views.registerPage,name="registerpage"),
     path('logout/',views.logoutPage,name="logout"),
     path('userprofile/<str:pk>',views.userProfile,name="userprofile"),
-    path('update-user/', views.updateUser, name="update-user"),
 
 ]
