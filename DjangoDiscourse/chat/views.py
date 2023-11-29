@@ -200,3 +200,17 @@ def userProfile(request,pk):
     topics = Topic.objects.all()
     context = {'user' : user,'rooms' : rooms,'chats' : chats,'topics' : topics}
     return render(request,'chat/profile.html',context)
+
+
+@login_required(login_url='login')
+def updateUser(request):
+    user = request.user
+    form = UserForm(instance=user)
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user-profile', pk=user.id)
+
+    return render(request, 'chat/update_user.html', {'form': form})
