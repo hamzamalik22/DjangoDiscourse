@@ -27,7 +27,7 @@ def home(request):
     )
 
     room_count = rooms.count()
-    topics = Topic.objects.all()
+    topics = Topic.objects.all()[0:5]
 
     chats = Message.objects.all().order_by('-created')
 
@@ -192,7 +192,7 @@ def userProfile(request,pk):
     context = {'user' : user,'rooms' : rooms,'chats' : chats,'topics' : topics}
     return render(request,'chat/profile.html',context)
 
-def updateUser(request,):
+def updateUser(request):
     user = request.user
     form = UserForm(instance=user)
 
@@ -204,3 +204,10 @@ def updateUser(request,):
 
     context = {'form' : form}
     return render(request,'chat/update-user.html',context)
+
+
+def topics(request):
+    q = request.GET.get('q')  if request.GET.get('q') != None else '' 
+    topics = Topic.objects.filter(topic__icontains = q)
+    context = {'topics' : topics}
+    return render(request,'chat/topics.html',context)
