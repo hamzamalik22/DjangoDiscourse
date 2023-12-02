@@ -172,7 +172,7 @@ def registerPage(request):
          
         if user.exists():
             messages.error(request,"User already exists")
-            return redirect('/login')
+            return redirect('/loginpage')
 
         user = User.objects.create(
             first_name = first_name , 

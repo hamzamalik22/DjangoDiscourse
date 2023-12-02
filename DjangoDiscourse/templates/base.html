@@ -18,7 +18,7 @@
           <div class="alert alert-dismissible fade show" role="alert" id="alertContainer">
             <ul class="messages">
               {% for message in messages %}
-              <li class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+              <li style="text-align: center;font-size: 20px;list-style: none;" class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
                 {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}<strong>Error:</strong> {% endif %}
                 {{ message }}
               </li>
@@ -35,7 +35,7 @@
               if (alertContainer) {
                 alertContainer.remove();
               }
-            }, 1200);
+            }, 1500);
           });
         </script>
       </div>
