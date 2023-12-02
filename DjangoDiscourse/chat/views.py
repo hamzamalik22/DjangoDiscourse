@@ -58,29 +58,20 @@ def room(request,pk):
 def createRoom(request):
     form = RoomForm()
     topics = Topic.objects.all()
-    if request.method ==  'POST':
+    if request.method == 'POST':
         topic_name = request.POST.get('topic')
-        topic, created = Topic.objects.get_or_create(name = topic_name)
+        topic, created = Topic.objects.get_or_create(topic = topic_name)
 
         Room.objects.create(
-            host = request.user,
-            topic = topic ,
-            name = request.POST.get('name'),
-            description = request.POST.get('description'),
-
+            host=request.user,
+            topic=topic,
+            name=request.POST.get('name'),
+            description=request.POST.get('description'),
         )
-
-
-        # form = RoomForm(request.POST)
-        # if form.is_valid():
-        #     room = form.save(commit=False)
-        #     room.host = request.user
-        #     room.save()
-
         return redirect('home')
-    context = {'form' : form,'page' : 'Create Room','topics' : topics}
-    return render(request,'chat/room_form.html',context)
 
+    context = {'form': form, 'topics': topics}
+    return render(request, 'chat/room_form.html', context)
 
 @login_required(login_url='loginpage')
 def updateRoom(request,pk):
