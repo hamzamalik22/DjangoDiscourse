@@ -12,25 +12,33 @@
 
   <body>
       <!-- Flash messages -->
-  <div>
-    {% if messages %}
-    <div class="container mt-3">
-      <div class="alert alert-dismissible fade show" role="alert">
-        <ul class="messages">
-          {% for message in messages %}
-          <li class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
-            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}<strong>Error:</strong> {% endif %}
-            {{ message }}
-          </li>
-          {% endfor %}
-        </ul>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div>
+        {% if messages %}
+        <div class="container mt-3">
+          <div class="alert alert-dismissible fade show" role="alert" id="alertContainer">
+            <ul class="messages">
+              {% for message in messages %}
+              <li class="alert {% if message.tags %} alert-{{ message.tags }} {% endif %}">
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}<strong>Error:</strong> {% endif %}
+                {{ message }}
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endif %}
+      
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
+              var alertContainer = document.getElementById('alertContainer');
+              if (alertContainer) {
+                alertContainer.remove();
+              }
+            }, 1200);
+          });
+        </script>
       </div>
-    </div>
-    {% endif %}
-  </div>
 
 
     {% include 'navbar.html' %}

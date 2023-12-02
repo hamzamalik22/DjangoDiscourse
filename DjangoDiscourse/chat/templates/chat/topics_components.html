@@ -12,7 +12,7 @@
       </li>
       {% endfor %}
     </ul>
-    <a class="btn btn--link" href="topics.html">
+    <a class="btn btn--link" href="{% url 'home' %}">
       More
       <svg
         version="1.1"
@@ -29,14 +29,6 @@
 
 
 
-
-{% comment %} 
-
-    {% for topic in topics %}
-    <a href="{% url 'home' %}?q={{topic}}"><li>{{topic}}</li></a>
-    {% endfor %}
-</ul>
- {% endcomment %}
 
 
 
