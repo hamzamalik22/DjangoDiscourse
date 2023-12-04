@@ -214,6 +214,6 @@ def topics(request):
 
 
 def activity(request):
-    room_messages = Message.objects.all()
-    context = {'topics' : topics}
+    chats = Message.objects.all()
+    context = {'topics' : topics,'chats' : chats}
     return render(request,'chat/activity.html',context)
