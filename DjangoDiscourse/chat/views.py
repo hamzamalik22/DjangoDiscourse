@@ -211,3 +211,9 @@ def topics(request):
     topics = Topic.objects.filter(topic__icontains = q)
     context = {'topics' : topics}
     return render(request,'chat/topics.html',context)
+
+
+def activity(request):
+    room_messages = Message.objects.all()
+    context = {'topics' : topics}
+    return render(request,'chat/activity.html',context)
