@@ -131,29 +131,29 @@ def loginPage(request):
         return redirect('home')
 
     if request.method == 'POST':
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
 
         try:
-            user = User.objects.get(username = username)
+            user = User.objects.get(email = email)
         except: 
-            messages.error(request,'User dont exists..')
+            messages.error(request,"User doesn't exists...")
             return redirect('loginpage')
     
-        user = authenticate(request,username=username, password=password)
+        user = authenticate(request,email=email, password=password)
 
         if user is not None:
             login(request,user)
             return redirect('home')
         else:
-            messages.error(request,'Username or Password incorrect')
+            messages.error(request,'Email or Password incorrect')
 
     context = {'page' : 'Login'}
     return render(request,'chat/login.html',context)
 
 def registerPage(request):
     if request.method == 'POST':
-        first_name = request.POST.get("first_name")
+        name = request.POST.get("name")
         username = request.POST.get("username")
         email = request.POST.get("email")
         password = request.POST.get("password")
@@ -165,7 +165,7 @@ def registerPage(request):
             return redirect('/loginpage')
 
         user = User.objects.create(
-            first_name = first_name , 
+            name = name , 
             username = username , 
             email = email , 
         )
@@ -196,7 +196,7 @@ def updateUser(request):
     form = UserForm(instance=user)
 
     if request.method == 'POST':
-        form = UserForm(request.POST, instance=user)
+        form = UserForm(request.POST,request.FILES, instance=user)
         if form.is_valid():
             form.save()
             return redirect('userprofile',pk = user.id)
