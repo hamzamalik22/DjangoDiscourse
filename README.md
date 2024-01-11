@@ -9,6 +9,7 @@ Django Discourse is a web application built with the Django framework for Python
 - **Room Joining:** Seamless room joining functionality, allowing users to easily become part of the discussions that interest them.
 - **Chat:** Dynamic chat functionality enables users to engage in conversations within the created rooms.
 - **Responsive Design:** The application is built with a responsive design, ensuring a consistent user experience across various devices.
+- **RESTful API:** Comprehensive API endpoints for seamless integration with external applications and services.
 
 ## Getting Started
 

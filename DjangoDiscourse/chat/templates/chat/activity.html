@@ -29,7 +29,7 @@
           </div>
 
           <div class="activities-page layout__body">
-            {% for chat in chats|slice:":3" %}
+            {% for chat in chats|slice:":5" %}
     <div class="activities__box">
       <div class="activities__boxHeader roomListRoom__header">
         <a href="{% url 'userprofile' chat.user.id %}" class="roomListRoom__author">
@@ -73,8 +73,6 @@
       </div>
     </div>
     {% endfor %}
-
-
 
 
           </div>

@@ -69,7 +69,7 @@ def createRoom(request):
         )
         return redirect('home')
 
-    context = {'form': form, 'topics': topics}
+    context = {'form': form, 'topics': topics,'page' : 'Create Room'}
     return render(request, 'chat/room_form.html', context)
 
 @login_required(login_url='loginpage')
@@ -125,7 +125,6 @@ def deleteMessage(request,pk):
 
 
 def loginPage(request):
-
 
     if request.user.is_authenticated:
         return redirect('home')
@@ -188,7 +187,7 @@ def userProfile(request,pk):
     rooms = user.room_set.all()
     chats = user.message_set.all()
     topics = Topic.objects.all()
-    context = {'user' : user,'rooms' : rooms,'chats' : chats,'topics' : topics}
+    context = {'user' : user,'rooms' : rooms,'chats' : chats,'topics' : topics,'page' : user.name}
     return render(request,'chat/profile.html',context)
 
 def updateUser(request):
@@ -201,18 +200,18 @@ def updateUser(request):
             form.save()
             return redirect('userprofile',pk = user.id)
 
-    context = {'form' : form}
+    context = {'form' : form,'page' : 'Update Profile'}
     return render(request,'chat/update-user.html',context)
 
 
 def topics(request):
     q = request.GET.get('q')  if request.GET.get('q') != None else '' 
     topics = Topic.objects.filter(topic__icontains = q)
-    context = {'topics' : topics}
+    context = {'topics' : topics,'page' : 'Topics'}
     return render(request,'chat/topics.html',context)
 
 
 def activity(request):
     chats = Message.objects.all()
-    context = {'topics' : topics,'chats' : chats}
+    context = {'topics' : topics,'chats' : chats,'page' : 'Activity'}
     return render(request,'chat/activity.html',context)
