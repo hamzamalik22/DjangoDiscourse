@@ -11,6 +11,29 @@ Django Discourse is a web application built with the Django framework for Python
 - **Responsive Design:** The application is built with a responsive design, ensuring a consistent user experience across various devices.
 - **RESTful API:** Comprehensive API endpoints for seamless integration with external applications and services.
 
+# ScreenShots
+
+- HomePage
+
+![Alt text](ProjectImages/homepage.png)
+
+- User Acount
+
+![Alt text](ProjectImages/Account.png)
+
+- Chat Room
+
+![Alt text](ProjectImages/room.png)
+
+- Form
+
+![Alt text](ProjectImages/form.png)
+
+- Profile
+
+![Alt text](ProjectImages/profile.png)
+
+
 ## Getting Started
 
 Follow these steps to set up Django Discourse on your local machine:
@@ -18,13 +41,13 @@ Follow these steps to set up Django Discourse on your local machine:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/django-discourse.git
+   git clone https://github.com/hamzamalik22/DjangoDiscourse.git
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd django-discourse
+   cd DjangoDiscourse
    ```
 
 3. Create a virtual environment:
